@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import logo from "../images/GroupSoup.png"
 
 function Landing() {
     const navigate = useNavigate();
 
     return (
-        <div id="Landing">
+        <div className="gradientBackground">
 
             <section>
-                <img src={("../images/GroupSoup.png")} id="LandingLogo"></img>
+                <img src={logo} id="LandingLogo" alt="logo"></img>
             </section>
 
             <section>

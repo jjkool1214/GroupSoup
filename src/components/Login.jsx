@@ -4,7 +4,7 @@ function Login() {
     const navigate = useNavigate();
 
     return (
-        <div id="Login">
+        <div className="gradientBackground">
             <h1> Let's make things happen IRL.</h1>
 
             <section>
