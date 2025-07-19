@@ -15,12 +15,13 @@ function Login() {
         password: password});
 
         if (error) {
+            console.log('WRONG');
             console.error(error);
         } else {
             localStorage.setItem('supabaseSession', JSON.stringify( data.session )); 
             setEmail('');
             setPassword('');
-            navigate('./home');
+            navigate('/home');
         }
     }
 
@@ -33,9 +34,11 @@ function Login() {
                     <input type="text" id="username" name="username" placeholder="Email or Phone Number" onChange={(e) => setEmail(e.target.value)} required></input>
                     <div className="loginBar"></div>
                     <input type="password" id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required></input>
-                    <div className="loginBar"></div>
+                    <div className="loginBar"></div> 
+
+                    <button type="submit" className="submitButton"> Sign in</button>
                 </form>
-                <button type="submit" className="submitButton"> Sign in</button>
+               
                 
                 <p> Don't have an account? <a onClick={() => navigate('/signUp')}> Sign up </a> </p>
             </section>

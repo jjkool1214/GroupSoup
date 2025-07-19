@@ -104,6 +104,7 @@ code {
 }
 
 .submitButton{
+  margin: auto;
   margin-top: 5%;
   width: 50vw;
   border-radius: 30px;
