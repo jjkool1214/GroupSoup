@@ -1,68 +1,256 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+html, body, main{
+  height: 100%;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+body {
+  display: flex;
+  flex-direction: column;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+body div {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
 }
 
-body {
-  margin: 0;
+#Banner {
+  background-color: orange;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: row;
+  position: static;
+  box-shadow: 0 5px 10px gray;
+
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#Banner h1 {
+  margin: auto;
+  margin-left: 5vw;
+  font-size: 5vw;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#Burger {
+  width: 25vw;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#SearchBar {
+  padding-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 10;
+  margin-left: 130px;
+
+}
+
+#SearchBar input {
+  font-size: 4vw;
+  border-radius: 10px;
+  padding: 5px;
+  width: calc(100vw - 200px);
+
+}
+
+#MobileNav {
+  position: fixed;
+  left: -100vw;
+  transition: left 0.5s;
+  z-index: 3;
+  width: 40vw;
+}
+
+#MobileNav div {
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1vh;
+  margin-top: 1vh;
+  margin-left: 1vw;
+  border-radius: 20px;
+  box-shadow: 0 5px 10px gray;
+}
+
+#LandingLogo {
+  margin-top: 5%;
+  width: 50%;
+  filter: drop-shadow(0 2px 2px gray);
+}
+
+.gradientBackground {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: linear-gradient( to bottom, white 0%, rgba(255, 149, 0, 0.7) 100%) ;
+}
+
+.submitButton{
+  margin-top: 5%;
+  width: 50vw;
+  border-radius: 30px;
+  border-color: orange;
+  border-style: solid;
+  background-color: white;
+  font-size: 5vw ;
+  color : orange;
+  font-weight: bold;
+  padding: 2%;
+}
+
+.submitButton:active{
+  transform: scale(1.2);
+}
+
+#LandingBar {
+  display: flex;
+  height: 5px;
+  width: 80vw;
+  align-self: center;
+  background-color: orange;
+  margin: auto;
+  margin-top: 10%;
+  border-radius: 30px;
+  filter: drop-shadow(0 3px 2px gray);
+}
+
+#SignInOptions {
+  display: flex;
+  flex-direction: column;
+}
+
+#SignInOptions button {
+  width: 70vw;
+  margin: auto;
+  margin-top: 4vh;
+  background-color: white;
+  border-radius: 5px;
+  border-color: orange;
+  border-style: solid;
+  padding: 7px;
+}
+
+.gradientBackground h1 {
+  margin: 10vw;
+  margin-top: 8vh;
+  font-size: 10vw;
+  font-weight: bold;
+  color: orange;
+}
+
+.signUpNav {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.gradientBackground h2 {
+  font-size: 6vw;
+  font-weight: bold;
+  color: orange;
+}
+
+form h2 {
+  text-align: left;
+  margin-left: 10vw;
+}
+
+.signUpBox {
+  display: flex;
+  border-color: black;
+  width: 30vw;
+  height: 10vh;
+  border-style: solid;
+  border-radius: 10px;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.signUpContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 3vh;
+}
+
+.hidden {
+  display: none;
+}
+
+.signUpNext {
+  margin: 20px;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 100px;
+  font-size: 3vh;
+}
+
+.signUpNext:active{
+  transform: scale(1.2);
+}
+
+.signUpBox:has(input[type="checkbox"]:checked) {
+  background-color: lightgreen;
+}
+
+
+#LoginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#LoginForm input {
+  width: 60vw;
+  margin-top: 10px;
+  margin-left: 12.5vw;
+  margin-bottom: 2.5px;
+  font-size: 5vw;
+  background-color: transparent;
+  border: none;
+}
+
+.loginBar {
+  display: flex;
+  height: 5px;
+  width: 75vw;
+  align-self: center;
+  background-color: orange;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  filter: drop-shadow(0 3px 2px gray);
+}
+
+.backButton {
+  color: orange;
+  background-color: transparent;
+  font-size: 8vw;
+  border: none;
+  margin-top: 5vh;
+  text-shadow: 0 2px 2px gray;
+}
+
+.backButton:active {
+  transform: scale(1.2);
+}
+
+
+.mt-5 {
+  margin-top: 5vh;
 }
