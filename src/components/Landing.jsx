@@ -20,7 +20,7 @@ function Landing() {
                 <button> Sign in with </button>
                 <button> Sign in with </button>
                 <button> Sign in with </button>
-                <p> Don't have an account? <a href="/src/components/SignUp"> Sign up </a></p>
+                <p> Don't have an account? <a onClick={() => navigate('/signup')}> Sign up </a></p>
             </section>
 
         </div>  
