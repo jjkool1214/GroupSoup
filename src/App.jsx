@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import './App.css';
+import {UserInfo} from "./components/UserInfo.jsx";
 
 const Home = lazy(() => import('./components/Home'));
 const Account = lazy(() => import('./components/Account'));
@@ -29,6 +30,7 @@ function App() {
                             <Route path="/groups" element={<Groups />} />
                             <Route path="/home" element={<Home />} />
                             <Route path="/signup" element={<SignUp />} />
+                            <Route path="signup/userInput" element={<UserInfo />} />
                             <Route path="/signup/stepone" element={<SetUpOne />} />
                             <Route path="/signup/steptwo" element={<SetUpTwo />} />
                         </Routes>

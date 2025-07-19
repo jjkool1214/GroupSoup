@@ -11,7 +11,7 @@ const SignUp = () => {
             </h1>
 
             <section>
-                <button className="submitButton" type="submit" onClick={()=> navigate("./stepone")}> Hell yea!</button>
+                <button className="submitButton" type="submit" onClick={()=> navigate("./userInput")}> Hell yea!</button>
                 <p className="mt-5"> Already have an account? <a href="/login"> Sign in </a> </p>
             </section>
 
@@ -24,4 +24,8 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
+const handleSignUp = async () => {
+
+}
 
