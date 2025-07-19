@@ -28,12 +28,12 @@ function Home() {
     },
   ];
 
-  const apiKey = process.env.VITE_GOOGLE_MAPS_API_KEY;
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   const [selected, setSelected] = useState(null);
 
   return (
-    <div>   
+    <div>  
       <Navigation />
 
       <section>
