@@ -1,5 +1,6 @@
 import burger from '../images/Burger.webp'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import supabase from '../supabaseClient';
 
 
 
@@ -26,6 +27,9 @@ function Navigation(props) {
                     <Link to="/groups">
                     <div>Groups</div>
                     </Link>
+                    <Link to="/" onClick={handleSignOut}>
+                    <div>Sign Out</div>
+                    </Link>
                 </nav>
 
             </main>
@@ -34,9 +38,6 @@ function Navigation(props) {
 }
 
 const handleClick = (event) => {
-    if(localStorage.getItem('session') === null){
-        return;
-    }
     var links = document.getElementById("MobileNav");
     if (event.target.id === "Burger") {
       if (links.style.left == "-100vw" | links.style.left == "") {
@@ -47,6 +48,10 @@ const handleClick = (event) => {
     } else if (event.target.closest("#MobileNav")) {
       links.style.left = "-100vw"
     }
+};
+
+const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut()
 };
 
 export default Navigation;

@@ -1,8 +1,14 @@
 import Navigation from "./Navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { useNavigate } from "react-router-dom";
+import  useProtectedPage  from './ProtectedPage'
 
 function Home() {
+  const { passed, loading } = useProtectedPage();
+  const [selected, setSelected] = useState(null);
+
+  if (loading||!passed) return null;
 
   const containerStyle = {
     width: '100%',
@@ -31,7 +37,6 @@ function Home() {
 
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-  const [selected, setSelected] = useState(null);
 
   return (
     <div>  
