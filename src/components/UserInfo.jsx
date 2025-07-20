@@ -1,7 +1,6 @@
-import burger from '../images/Burger.webp'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js'
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import supabase from "../supabaseClient.jsx";
 
 export function UserInfo () {
@@ -10,6 +9,7 @@ export function UserInfo () {
     const [email, setEmail] = useState('');
     const [isValid, setIsValid] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const navigation = useNavigate();
 
     const checkEmail = (email) => {
         return email !== '' && email.match(
@@ -23,13 +23,25 @@ export function UserInfo () {
             setIsValid(false);
             return;
         }
-        await supabase.auth.signUp({
+        let user = await supabase.auth.signUp({
             email: email,
             password: password,
             options: {
-                username: username
+                data : {
+                    username: username
+                }
             }
         })
+        console.log(user.data.session);
+
+        if(user.error){
+            console.error("Something went wrong. Please try again later");
+            console.error(user.error.message)
+        } else {
+            localStorage.setItem("supabaseSession", JSON.stringify(user.data.session));
+            navigation('../account')
+        }
+
     }
 
     return (
@@ -50,7 +62,7 @@ export function UserInfo () {
                 Sign up
             </button>
             <div>
-                <h1 className={ submitted ? isValid ? "hidden" : "visible" : "hidden"}>You did NOT put in any values LMAO</h1>
+                <h1 className={ submitted ? (isValid ? "hidden" : "visible") : "hidden"}>You did NOT put in any values LMAO</h1>
             </div>
         </div>
     )

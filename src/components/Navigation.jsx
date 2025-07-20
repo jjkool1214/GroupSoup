@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 
 
-function Navigation() {
+function Navigation(props) {
+
 
     return (
         <div>
@@ -33,6 +34,9 @@ function Navigation() {
 }
 
 const handleClick = (event) => {
+    if(localStorage.getItem('session') === null){
+        return;
+    }
     var links = document.getElementById("MobileNav");
     if (event.target.id === "Burger") {
       if (links.style.left == "-100vw" | links.style.left == "") {
