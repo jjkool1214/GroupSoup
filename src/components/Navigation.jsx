@@ -4,7 +4,7 @@ import supabase from '../supabaseClient';
 
 
 
-function Navigation(props) {
+function Navigation() {
 
 
     return (
