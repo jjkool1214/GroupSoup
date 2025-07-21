@@ -52,7 +52,7 @@ export function UserInfo () {
             </div>
             <div>
                 <label htmlFor="password" >Password</label>
-                <input type={"text"} onChange={(e) => setPassword(e.target.value)}></input>
+                <input type={"password"} onChange={(e) => setPassword(e.target.value)}></input>
             </div>
             <div>
                 <label htmlFor="email" >email</label>

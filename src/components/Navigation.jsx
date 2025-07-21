@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 
 
-function Navigation(props) {
+function Navigation() {
 
 
     return (
@@ -34,7 +34,7 @@ function Navigation(props) {
 }
 
 const handleClick = (event) => {
-    if(localStorage.getItem('session') === null){
+    if(localStorage.getItem('supabaseSession') === null){
         return;
     }
     var links = document.getElementById("MobileNav");
