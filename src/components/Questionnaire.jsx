@@ -32,9 +32,9 @@ export function Questionnaire () {
             <div>
                 {
                     Object.keys(groupings).map((catName) => (
-                        <div key={catName} className="flex flex-wrap gap-2">
+                        <div key={catName} className="flex flex-col flex-wrap gap-2">
                             <h1>{catName}</h1>
-                            <div>
+                            <div className="questionaireTags">
                                 {groupings[catName].map((tag) => {
                                     const isSelected = selectedTags.includes(tag);
                                     console.log(Object.keys(tag)[0] + " " + isSelected)

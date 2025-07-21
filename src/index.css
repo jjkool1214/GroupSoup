@@ -1,6 +1,7 @@
 #root {
   padding: 0 !important;
   margin: 0 !important;
+  height: 100%;
 }
 
 html, body, main{
@@ -10,14 +11,8 @@ html, body, main{
 body {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
-
-body div {
-  display: flex;
-  flex-direction: column;
-  flex:1;
-}
-
 
 body {
   margin: 0;
@@ -56,16 +51,45 @@ code {
   padding-top: 10px;
   display: flex;
   justify-content: flex-start;
-  z-index: 10;
-  margin-left: 130px;
+  margin-left: 220px;
+  position: inherit;
+}
 
+main {
+  display: flex;
+  flex-direction: column;
+  flex:1
+}
+
+.appPage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mapContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.questionaireTags {
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
 }
 
 #SearchBar input {
   font-size: 4vw;
   border-radius: 10px;
   padding: 5px;
-  width: calc(100vw - 200px);
+  width: calc(100vw - 300px);
   background-color: white;
   border-color: black;
   border-width: 1px;
