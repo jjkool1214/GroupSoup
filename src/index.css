@@ -66,6 +66,9 @@ code {
   border-radius: 10px;
   padding: 5px;
   width: calc(100vw - 200px);
+  background-color: white;
+  border-color: black;
+  border-width: 1px;
 
 }
 
@@ -90,9 +93,11 @@ code {
 }
 
 #LandingLogo {
+  margin: auto;
   margin-top: 5%;
   width: 50%;
   filter: drop-shadow(0 2px 2px gray);
+  
 }
 
 .gradientBackground {
@@ -109,6 +114,7 @@ code {
   width: 50vw;
   border-radius: 30px;
   border-color: orange;
+  border-width: 2px;
   border-style: solid;
   background-color: white;
   font-size: 5vw ;

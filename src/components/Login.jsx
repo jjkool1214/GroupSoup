@@ -40,7 +40,7 @@ function Login() {
                 </form>
                
                 
-                <p> Don't have an account? <a onClick={() => navigate('/signUp')}> Sign up </a> </p>
+                <p className="mt-5"> Don't have an account? <a onClick={() => navigate('/signUp')}> Sign up </a> </p>
             </section>
 
             <section>
