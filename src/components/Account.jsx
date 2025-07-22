@@ -1,32 +1,19 @@
 import Navigation from "./Navigation.jsx";
 import {useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
+import useProtectedPage from "./ProtectedPage.jsx";
 
 
 function Account() {
-    const [account, setAccount] = useState( () => {
-       JSON.parse(localStorage.getItem("session"))
-    });
+    const { passed, loading } = useProtectedPage();
     const navigate = useNavigate();
 
-    function UserIsFound(){
-        if(account){
-            return (
-                <h1>
-                    {account.user.user_metadata.username}
-                </h1>
-            )
-        } else {
-            return(
-                <h1>Not Found</h1>
-            )
-        }
-    }
+    if (loading||!passed) return null;
 
   return (
     <div>   
-      <Navigation disabled={true} />
-        <UserIsFound />
+        <Navigation />
+        <h1> Your Profile </h1>
     </div>
   );
 }
