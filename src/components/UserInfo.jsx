@@ -46,10 +46,11 @@ export function UserInfo () {
         }
         localStorage.setItem("supabaseSession", JSON.stringify(user.data.session));
         navigation('../account')
-
+        console.log(user)
         const userTagData = groupings.map((group) =>{
             let key = Object.keys(group)[0]
-            return {"user" : user.id, "tag" : group[key]}
+
+            return {"user" : user["data"]["session"]["user"]["id"], "tag" : group[key]}
         } )
         console.log(userTagData)
         const {error} = await supabase.from("user_tag_table").insert(userTagData)
