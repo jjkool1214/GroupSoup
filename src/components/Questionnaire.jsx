@@ -1,6 +1,6 @@
 import supabase from "../supabaseClient.jsx";
 import {useState} from "react";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import tailwindcss from "tailwindcss";
 
 export function Questionnaire () {
@@ -22,6 +22,8 @@ export function Questionnaire () {
         }
         setSelectedTags(newArr);
     }
+
+    const navigate = useNavigate();
 
 
     return  (
@@ -52,7 +54,7 @@ export function Questionnaire () {
                     ))
                 }
             </div>
-            <button onClick={() => console.log(selectedTags)}>tags selected</button>
+            <button onClick={() => navigate("./../userInfo", {state : {selectedTags}})}>tags selected</button>
         </div>
     )
 }

@@ -31,7 +31,7 @@ function App() {
                             <Route path="/groups" element={<Groups />} />
                             <Route path="/home" element={<Home />} />
                             <Route path="/signup" element={<SignUp />} />
-                            <Route path="signup/userInput" element={<UserInfo />} />
+                            <Route path="signup/userInfo" element={<UserInfo />} />
                             <Route path="/signup/stepone" element={<SetUpOne />} />
                             <Route path="/signup/steptwo" element={<SetUpTwo />} />
                             <Route path="/signup/Questionnaire" element={<Questionnaire />} />

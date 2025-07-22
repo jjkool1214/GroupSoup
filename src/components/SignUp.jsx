@@ -54,7 +54,5 @@ const SignUp = () => {
 
 export default SignUp;
 
-const handleSignUp = async () => {
 
-}
 

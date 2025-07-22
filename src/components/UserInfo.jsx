@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import supabase from "../supabaseClient.jsx";
 
 export function UserInfo () {
@@ -10,6 +9,12 @@ export function UserInfo () {
     const [isValid, setIsValid] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const navigation = useNavigate();
+
+    const location = useLocation();
+    console.log(location)
+    const groupings = location.state.selectedTags;
+
+    console.log(groupings)
 
     const checkEmail = (email) => {
         return email !== '' && email.match(
@@ -37,10 +42,25 @@ export function UserInfo () {
         if(user.error){
             console.error("Something went wrong. Please try again later");
             console.error(user.error.message)
-        } else {
-            localStorage.setItem("supabaseSession", JSON.stringify(user.data.session));
-            navigation('../account')
+            return
         }
+        localStorage.setItem("supabaseSession", JSON.stringify(user.data.session));
+        navigation('../account')
+
+        const userTagData = groupings.map((group) =>{
+            let key = Object.keys(group)[0]
+            return {"user" : user.id, "tag" : group[key]}
+        } )
+        console.log(userTagData)
+        const {error} = await supabase.from("user_tag_table").insert(userTagData)
+
+        if(error){
+            console.error(error)
+            return;
+        }
+
+        console.log("Check the db bozo")
+        navigation('../account')
 
     }
 
