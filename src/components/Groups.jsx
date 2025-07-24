@@ -7,6 +7,18 @@ function Groups() {
   const { passed, loading } = useProtectedPage();
   const [ groupName, setGroupName ] = useState();
   const [ organizer, setOrganizer ] = useState(true);
+  const [ groups, setGroups ] = useState([]);
+  const [ fetchTrigger, setFetchTrigger] = useState(0)
+
+  useEffect(() => {
+    const handleGroups = async() => {
+      const {data, error} = await supabase
+        .from('group_table')
+        .select('id, name');
+      setGroups(data);      
+    }
+    handleGroups();    
+  }, [fetchTrigger])
   
   const handleNewGroup = async(e) => {
     e.preventDefault();
@@ -18,10 +30,6 @@ function Groups() {
       .insert({
           name: groupName,
       }).select('id');
-
-    if (groupError) {
-      console.log(groupError);
-    }
     
     const {data : memberData, error: memberError} = await supabase
       .from('group_members_table')
@@ -30,6 +38,8 @@ function Groups() {
         group_id: groupData[0].id,
         organizer: organizer
     });
+
+    setFetchTrigger(fetchTrigger+1);
 
   }
   
@@ -46,6 +56,14 @@ function Groups() {
 
         <button type="submit">Submit!</button>
       </form>
+      
+      <section>
+        {groups.map((group) => {
+          return (
+            <div key={group.id}>{group.id} : {group.name}</div>
+          )
+        })}
+      </section>
       
 
     </div>

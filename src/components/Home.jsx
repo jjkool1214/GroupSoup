@@ -35,15 +35,11 @@ function Home() {
     },
   ];
 
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
-
   return (
     <div className="appPage">  
       <Navigation />
 
       <section className="mapContainer">
-        <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -72,7 +68,6 @@ function Home() {
               </InfoWindow>
             )}
           </GoogleMap>
-        </LoadScript>
       </section>
     </div>
   );

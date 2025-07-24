@@ -4,6 +4,8 @@ import ScrollToTop from './ScrollToTop';
 import './App.css';
 import {UserInfo} from "./components/UserInfo.jsx";
 import {Questionnaire} from "./components/Questionnaire.jsx";
+import { LoadScript } from '@react-google-maps/api';
+
 
 const Home = lazy(() => import('./components/Home'));
 const Account = lazy(() => import('./components/Account'));
@@ -16,12 +18,16 @@ const SetUpTwo = lazy(() => import('./components/SetUpTwo'));
 
 
 function App() {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
     return (
         <Router>
 
             <ScrollToTop />
 
             <div className="App">
+                <LoadScript googleMapsApiKey={apiKey}/>
+
                 <main>
                     <Suspense fallback={<div>Loading...</div>}>
                         <Routes>

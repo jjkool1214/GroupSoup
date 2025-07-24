@@ -6,7 +6,6 @@ import supabase from '../supabaseClient';
 
 function Navigation() {
 
-
     return (
         <div>
             <header id='Banner'>
