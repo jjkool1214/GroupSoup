@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import './App.css';
 import {UserInfo} from "./components/UserInfo.jsx";
-import {Questionnaire} from "./components/Questionnaire.jsx";
 import { LoadScript } from '@react-google-maps/api';
 
 
@@ -12,9 +11,11 @@ const Account = lazy(() => import('./components/Account'));
 const Groups = lazy(() => import('./components/Groups'));
 const Landing = lazy(() => import('./components/Landing'));
 const Login = lazy(() => import('./components/Login'));
-const SignUp = lazy(() => import('./components/SignUp'));
+const SignUp = lazy(() => import('./components/SignUpUser.jsx'));
 const SetUpOne = lazy(() => import('./components/SetUpOne'));
 const SetUpTwo = lazy(() => import('./components/SetUpTwo'));
+const Questionnaire = lazy(() => import('./components/Questionnaire'));
+const SignUpBusiness = lazy( () => import("./components/SignUpBusiness"));
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                             <Route path="/signup/stepone" element={<SetUpOne />} />
                             <Route path="/signup/steptwo" element={<SetUpTwo />} />
                             <Route path="/signup/Questionnaire" element={<Questionnaire />} />
+                            <Route path="/businessSignup" element={<SignUpBusiness />} />
                         </Routes>
                     </Suspense>
                 </main>

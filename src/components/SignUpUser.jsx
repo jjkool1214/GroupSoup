@@ -3,7 +3,7 @@ import supabase from "../supabaseClient.jsx";
 import {useState} from "react";
 
 
-const SignUp = () => {
+const SignUpUser = () => {
     const navigate = useNavigate();
 
     const handleQuestionnaireNavigate = async () => {
@@ -52,7 +52,7 @@ const SignUp = () => {
     )
 }
 
-export default SignUp;
+export default SignUpUser;
 
 
 
