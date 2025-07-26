@@ -8,9 +8,25 @@ function Groups() {
   const [ groupName, setGroupName ] = useState();
   const [ organizer, setOrganizer ] = useState(true);
   const [ groups, setGroups ] = useState([]);
+  const [ yourGroups, setYourGroups ] = useState([]);
   const [ fetchTrigger, setFetchTrigger] = useState(0)
 
   useEffect(() => {
+    
+    const handleYourGroups = async() => {
+      const {data: userData, error: userError} = await supabase.auth.getUser();
+
+      const {data, error} = await supabase
+        .from('group_members_table')
+        .select('id, group_id, group_table(name)')
+        .eq("user_id", userData.user.id);
+      setYourGroups(data);
+    }
+    handleYourGroups();    
+  }, [fetchTrigger])
+
+  useEffect(() => {
+    
     const handleGroups = async() => {
       const {data, error} = await supabase
         .from('group_table')
@@ -42,14 +58,59 @@ function Groups() {
     setFetchTrigger(fetchTrigger+1);
 
   }
+
+  const handleJoinGroup = async(groupId) => {
+
+    const {data: userData, error: userError} = await supabase.auth.getUser();
+
+    const {data, error} = await supabase
+      .from('group_members_table')
+      .insert({
+        user_id: userData.user.id,
+        group_id: groupId,
+        organizer: organizer
+      });
+
+    setFetchTrigger(fetchTrigger+1);
+
+  }
   
+ const handleLeaveGroup = async(groupId) => {
+
+    const {data: userData, error: userError} = await supabase.auth.getUser();
+
+    const {data, error} = await supabase
+      .from('group_members_table')
+      .delete()
+      .eq(
+        "user_id", userData.user.id
+      )
+      .eq(
+         "group_id", groupId
+      );
+
+    setFetchTrigger(fetchTrigger+1);
+
+  }
+
   if (loading||!passed) return null;
 
   return (
     <div>   
       <Navigation />
       
-      <h1>Groups</h1>
+      <h1>Your Groups</h1>
+      <section>
+        {yourGroups.map((group) => {
+          return (
+            <div key={group.group_id} className="groupList">
+              <div>{group.group_id} : {group.group_table.name}</div>
+              <button onClick={()=>handleLeaveGroup(group.group_id)}> Leave! </button>
+            </div>
+          )
+        })}
+      </section>
+        
       <form id="newGroupForm" onSubmit={handleNewGroup}>
         <label htmlFor="newGroup" name="newGroup"> Create Group: </label>
         <input type="text" id="newGroup" onChange={(e) => setGroupName(e.target.value)} required></input>
@@ -57,10 +118,20 @@ function Groups() {
         <button type="submit">Submit!</button>
       </form>
       
+      <h1>All Groups</h1>
+
       <section>
-        {groups.map((group) => {
+        {groups.filter((group) => {
+          const isUserMember = yourGroups.some(member =>
+            member.group_id === group.id);
+          return !isUserMember;
+        })
+          .map((group) => {
           return (
-            <div key={group.id}>{group.id} : {group.name}</div>
+            <div key={group.id} className="groupList">
+              <div>{group.id} : {group.name}</div>
+              <button onClick={()=>handleJoinGroup(group.id)}> Join! </button>
+            </div>
           )
         })}
       </section>

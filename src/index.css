@@ -74,6 +74,17 @@ main {
   flex: 1;
 }
 
+.groupList {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+}
+
+.groupList div {
+  margin-right: 50px;
+}
+
 .mapContainer {
   display: flex;
   flex-direction: column;
