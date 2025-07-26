@@ -1,91 +1,132 @@
-import {useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import supabase from "../supabaseClient.jsx";
 
-export function UserInfo () {
+export function UserInfo() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [isValid, setIsValid] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const navigation = useNavigate();
+    const [isValid, setIsValid] = useState(true);
 
+    const navigate = useNavigate();
     const location = useLocation();
-    console.log(location)
-    const groupings = location.state.selectedTags;
 
-    console.log(groupings)
+    const groupings = location.state?.selectedTags || [];
 
     const checkEmail = (email) => {
-        return email !== '' && email.match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
-    }
+        return email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
     const handleClick = async () => {
-        console.log("username: " + username + " password: " + password + " email: " + email);
         setSubmitted(true);
-        if(username === '' || password === '' || !checkEmail(email)){
+
+        if (!username || !password || !checkEmail(email)) {
             setIsValid(false);
             return;
         }
-        let user = await supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data : {
-                    username: username
-                }
-            }
-        })
-        console.log(user.data.session);
 
-        if(user.error){
-            console.error("Something went wrong. Please try again later");
-            console.error(user.error.message)
-            return
-        }
-        localStorage.setItem("supabaseSession", JSON.stringify(user.data.session));
-        navigation('../account')
-        console.log(user)
-        const userTagData = groupings.map((group) =>{
-            let key = Object.keys(group)[0]
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+            email,
+            password,
+        });
 
-            return {"user" : user["data"]["session"]["user"]["id"], "tag" : group[key]}
-        } )
-        console.log(userTagData)
-        const {error} = await supabase.from("user_tag_table").insert(userTagData)
-
-        if(error){
-            console.error(error)
+        if (signUpError) {
+            console.error("Signup failed:", signUpError.message);
             return;
         }
 
-        console.log("Check the db bozo")
-        navigation('../account')
+        const userId = signUpData.user?.id;
+        if (!userId) {
+            console.error("User ID not returned. Email confirmation may be required.");
+            return;
+        }
 
-    }
+        const { error: profileError } = await supabase.from("user_table").insert({
+            user: userId,
+            type: "user",
+            username: username,
+        });
+
+        if (profileError) {
+            console.error("Profile creation failed:", profileError.message);
+            return;
+        }
+
+        const userTagData = groupings.map((group) => {
+            const key = Object.keys(group)[0];
+            return {
+                user: userId,
+                tag: group[key],
+            };
+        });
+
+        const { error: tagError } = await supabase.from("user_tag_table").insert(userTagData);
+
+        if (tagError) {
+            console.error("Tag insert failed:", tagError.message);
+            return;
+        }
+
+        // Store session if available (depends on your Supabase email confirmation settings)
+        if (signUpData.session) {
+            localStorage.setItem("supabaseSession", JSON.stringify(signUpData.session));
+        }
+
+        navigate('../account');
+    };
 
     return (
-        <div>
-            <div>
-                <label htmlFor="username" >User Name</label>
-                <input type={"text"} onChange={(e) => setUsername(e.target.value)}></input>
-            </div>
-            <div>
-                <label htmlFor="password" >Password</label>
-                <input type={"password"} onChange={(e) => setPassword(e.target.value)}></input>
-            </div>
-            <div>
-                <label htmlFor="email" >email</label>
-                <input type={"text"} onChange={(e) => setEmail(e.target.value)}></input>
-            </div>
-            <button onClick = {(e) => handleClick(e)}>
-                Sign up
-            </button>
-            <div>
-                <h1 className={ submitted ? (isValid ? "hidden" : "visible") : "hidden"}>You did NOT put in any values LMAO</h1>
+        <div className="min-h-screen flex justify-center items-center bg-gray-100">
+            <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-6">
+                <h2 className="text-2xl font-bold text-center">Sign Up</h2>
+
+                <div>
+                    <label htmlFor="username" className="block font-semibold mb-1">Username</label>
+                    <input
+                        id="username"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="password" className="block font-semibold mb-1">Password</label>
+                    <input
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="email" className="block font-semibold mb-1">Email</label>
+                    <input
+                        id="email"
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                </div>
+
+                <button
+                    onClick={handleClick}
+                    className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                >
+                    Sign Up
+                </button>
+
+                {!isValid && submitted && (
+                    <p className="text-red-500 font-semibold text-center">
+                        Please fill all fields correctly.
+                    </p>
+                )}
             </div>
         </div>
-    )
+    );
 }
-

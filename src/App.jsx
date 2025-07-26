@@ -15,7 +15,8 @@ const SignUp = lazy(() => import('./components/SignUpUser.jsx'));
 const SetUpOne = lazy(() => import('./components/SetUpOne'));
 const SetUpTwo = lazy(() => import('./components/SetUpTwo'));
 const Questionnaire = lazy(() => import('./components/Questionnaire'));
-const SignUpBusiness = lazy( () => import("./components/SignUpBusiness"));
+const SignUpBusiness = lazy( () => import("./components/UserInfoBusiness.jsx"));
+const Descriptors = lazy(() => import('./components/Descriptors'));
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                             <Route path="/signup/steptwo" element={<SetUpTwo />} />
                             <Route path="/signup/Questionnaire" element={<Questionnaire />} />
                             <Route path="/businessSignup" element={<SignUpBusiness />} />
+                            <Route path="/businessSignup/Descriptors" element={<Descriptors />} />
                         </Routes>
                     </Suspense>
                 </main>
