@@ -22,6 +22,7 @@ function Landing() {
                 <button> Sign in with </button>
                 <button> Sign in with </button>
                 <p> Don't have an account? <a onClick={() => navigate('/signup')}> Sign up </a></p>
+                <p> Is bro a business? LMAO <a onClick={() => navigate('/businessSignup')}>Sign up here</a> </p>
             </section>
 
         </div>  

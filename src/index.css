@@ -91,10 +91,6 @@ main {
   flex: 1;
 }
 
-.questionaireTags {
-  display: flex;
-  flex-direction: column;
-}
 
 .App {
   display: flex;
