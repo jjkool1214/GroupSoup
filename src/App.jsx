@@ -47,7 +47,7 @@ function App() {
                             <Route path="/businessSignup" element={<SignUpBusiness />} />
                             <Route path="/businessSignup/Descriptors" element={<Descriptors />} />
                             <Route path="/businessDashboard" element={<BusinessDashboard />} />
-
+                            <Route path="/groups/:groupId" element={<Landing />} />
                         </Routes>
                     </Suspense>
                 </main>

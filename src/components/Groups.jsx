@@ -2,14 +2,16 @@ import Navigation from "./Navigation.jsx";
 import useProtectedPage from "./ProtectedPage.jsx";
 import supabase from "../supabaseClient.jsx";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Groups() {
+  const navigate = useNavigate();
   const { passed, loading } = useProtectedPage();
   const [ groupName, setGroupName ] = useState();
   const [ organizer, setOrganizer ] = useState(true);
   const [ groups, setGroups ] = useState([]);
   const [ yourGroups, setYourGroups ] = useState([]);
-  const [ fetchTrigger, setFetchTrigger] = useState(0)
+  const [ fetchTrigger, setFetchTrigger] = useState(0);
 
   useEffect(() => {
     
@@ -106,6 +108,7 @@ function Groups() {
             <div key={group.group_id} className="groupList">
               <div>{group.group_id} : {group.group_table.name}</div>
               <button onClick={()=>handleLeaveGroup(group.group_id)}> Leave! </button>
+              <button onClick={()=>navigate('./'+group.group_id)}> View </button>
             </div>
           )
         })}
@@ -131,6 +134,8 @@ function Groups() {
             <div key={group.id} className="groupList">
               <div>{group.id} : {group.name}</div>
               <button onClick={()=>handleJoinGroup(group.id)}> Join! </button>
+              <button onClick={()=>navigate('./'+group.id)}> View </button>
+
             </div>
           )
         })}

@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../supabaseClient";
+import { useParams } from "react-router-dom";
 
-function GroupPage(groupId) {
+function GroupPage() {
+    const [group, setGroup] = useState();
+    const {groupId} = useParams();
 
 
     useEffect(() => {
@@ -10,6 +13,8 @@ function GroupPage(groupId) {
                 .from('group_table')
                 .select('*')
                 .eq(groupId);
+
+            setGroup(groupData);
         }
     }, [])
 
