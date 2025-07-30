@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import {useLocation, useNavigate} from "react-router-dom"
 import supabase from "../supabaseClient.jsx"
 
 function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const location = useLocation();
+    const type = location.state?.type
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +23,11 @@ function Login() {
             localStorage.setItem('supabaseSession', JSON.stringify( data.session )); 
             setEmail('');
             setPassword('');
-            navigate('/home');
+            if(type === 'business'){
+                navigate('/businessDashboard');
+            } else {
+                navigate('/home');
+            }
         }
     }
 
