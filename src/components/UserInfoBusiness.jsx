@@ -99,7 +99,7 @@ const UserInfoBusiness = () => {
         }
 
         // Step 5: Redirect to dashboard
-        navigate("../business-account");
+        navigate("..//businessDashboard");
     };
 
     return (

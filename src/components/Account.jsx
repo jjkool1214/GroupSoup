@@ -21,13 +21,7 @@ function Account() {
     handleEmail();
   }, [])
 
-  useEffect(() => {
-    const handleUser = async() => {
-        const {data, error} = await supabase.auth.getUser();
-        setUserName(data.user.user_metadata.username);
-    }
-    handleUser();
-  }, [])
+
 
   useEffect(() => {
     const handleTags = async () => {
@@ -57,8 +51,23 @@ function Account() {
       setTagLoading(false);
     };
 
+    const storage = JSON.parse(localStorage.getItem("supabaseSession"));
+    const handleUser = async() => {
+      console.log(storage.user)
+      const {data, error} = await supabase.from("user_table").select('*').eq("user", storage.user.id);
+      if(error) {
+        console.error("User fetch error:", error);
+      } else {
+        console.log(data);
+        setUserName(data[0]?.username);
+      }
+
+    }
+
     if (passed && !loading) {
       handleTags();
+      handleUser();
+      setEmail(storage.user.email);
     }
   }, [passed, loading]);
 
