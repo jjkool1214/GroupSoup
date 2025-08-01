@@ -18,6 +18,8 @@ const Questionnaire = lazy(() => import('./components/Questionnaire'));
 const SignUpBusiness = lazy( () => import("./components/UserInfoBusiness.jsx"));
 const Descriptors = lazy(() => import('./components/Descriptors'));
 const BusinessDashboard = lazy(() => import('./components/BusinessDashboard.jsx'));
+const GroupPage = lazy(() => import('./components/GroupPage.jsx'));
+
 
 
 function App() {
@@ -47,7 +49,7 @@ function App() {
                             <Route path="/businessSignup" element={<SignUpBusiness />} />
                             <Route path="/businessSignup/Descriptors" element={<Descriptors />} />
                             <Route path="/businessDashboard" element={<BusinessDashboard />} />
-                            <Route path="/groups/:groupId" element={<Landing />} />
+                            <Route path="/groups/:groupId" element={<GroupPage />} />
                         </Routes>
                     </Suspense>
                 </main>
