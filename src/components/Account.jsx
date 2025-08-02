@@ -14,16 +14,6 @@ function Account() {
   const [email, setEmail] = useState();
 
   useEffect(() => {
-    const handleEmail = async() => {
-        const {data, error} = await supabase.auth.getUser();
-        setEmail(data.user.email);
-    }
-    handleEmail();
-  }, [])
-
-
-
-  useEffect(() => {
     const handleTags = async () => {
       const { data: userData, error: userError } = await supabase.auth.getUser();
       if (userError || !userData?.user) {
@@ -92,6 +82,7 @@ function Account() {
           ))}
         </ul>
       )}
+      <button onClick={() => navigate('../signup/Questionnaire', {state : {chosen : tags, update : true}})}>Change Tags</button>
     </div>
   );
 }
