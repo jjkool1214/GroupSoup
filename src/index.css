@@ -85,6 +85,82 @@ main {
   margin-right: 50px;
 }
 
+.businessBubble {
+  background-color: orange;
+  border-radius: 50%;
+  height: 45vh;
+  width: 125vw;
+  position: absolute;
+  top: -20vh;
+  left: -12.5vw;
+}
+
+.bubbleContainer {
+  position: relative;
+  overflow-x: clip;
+}
+
+.pullUpHandle {
+  display: flex;
+  margin: auto;
+  width: 40vw;
+  height: 5px;
+  padding: 0;
+  background-color: black;
+}
+
+.businessProfilePicture{
+  background-color: bisque;
+  background-image: url("./images/image.png");
+  background-size: contain;
+  border-radius: 50%;
+  height: 20vh;
+  width: 20vh;
+  position: absolute;
+  top: 10vh;
+  left: calc(50vw - 10vh);
+}
+
+.businessNavBubble {
+  background-color: orange;
+  border-radius: 50%;
+  width: 14vw;
+  height: 14vw;
+  position: absolute;
+}
+
+.bubbleOne {
+  top: 22.5vh;
+  left: 3vw;
+}
+
+.bubbleTwo {
+  top: 25vh;
+  left: 19vw;
+}
+
+.bubbleThree {
+  top: 25vh;
+  right: 19vw;
+}
+
+.bubbleFour {
+  top: 22.5vh;
+  right: 3vw;
+}
+
+.businessPullUp {
+  position: absolute;
+  top: 60vh;
+  width: 100vw;
+  height: 40vh;
+  border-radius: 10% 10% 0% 0%;
+  border-color: orange;
+  border-width: 5px;
+  border-bottom-width: 0;
+  background-color: bisque;
+  filter: drop-shadow(0 20px 20px gray);}
+
 .mapContainer {
   display: flex;
   flex-direction: column;
