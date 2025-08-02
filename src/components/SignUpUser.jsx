@@ -28,7 +28,7 @@ const SignUpUser = () => {
             }
         })
         console.log(groupings)
-        navigate('./Questionnaire', {state : {groupings}});
+        navigate('./Questionnaire', {state : {chosen : [], update : false}});
     }
 
 
