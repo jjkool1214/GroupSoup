@@ -22,13 +22,48 @@ const UserInfoBusiness = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+
+
     const descriptorList = location.state?.data || []; // [{ id, descriptors }]
     const selectedDescriptors = location.state?.selectedDescriptors || []; // [{ id, descriptors }]
+
+    const geocodeAndSaveBusiness = async (businessId, businessAddress) => {
+        // 1. Call the Edge Function to get the coordinates
+        const { data: geocodeResponse, error: geocodeError } = await supabase.functions.invoke('geocode-address', {
+            body: { address: businessAddress },
+        });      
+
+
+
+        if (geocodeError) {
+            console.error("Failed to geocode address:", geocodeError);
+            return null;
+        }
+
+        const { latitude, longitude } = geocodeResponse;
+        
+        // 2. Construct the PostGIS POINT string for the database update
+        const pointString = `POINT(${longitude} ${latitude})`;
+        
+        // 3. Update the business record with the new location data
+        const { error: updateError } = await supabase
+            .from("business_table")
+            .update({ location: pointString })
+            .eq("id", businessId);
+
+        if (updateError) {
+            console.error("Failed to update database with coordinates:", updateError);
+            return null;
+        }
+
+        console.log("Successfully geocoded address and saved coordinates.");
+        return { latitude, longitude };
+    };
 
     const handleBusinessSignUp = async () => {
         setSubmitted(true);
 
-        const { email, password, username, displayName, address, description, maxCapacity } = businessInfo;
+        const { email, password, username, displayName, address, description, maxCapacity} = businessInfo;
 
         if (!email || !password || !checkEmail(email)) {
             setIsValid(false);
@@ -59,7 +94,7 @@ const UserInfoBusiness = () => {
                 user: userId,
                 display_name: displayName,
                 description: description,
-                Address: address,
+                address: address,
                 max_capacity: parseInt(maxCapacity) || null,
             })
             .select()
@@ -74,6 +109,11 @@ const UserInfoBusiness = () => {
         if (!businessId) {
             console.error("Business ID not returned.");
             return;
+        }
+
+        const coordinates = await geocodeAndSaveBusiness(businessId, address);
+        if (!coordinates) {
+             console.error("Geocoding failed. Proceeding without coordinates.");
         }
 
         // Step 3: Link descriptors to business

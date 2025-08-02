@@ -1,8 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from 'tailwindcss';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-})
+  resolve: {
+    alias: {
+      buffer: 'buffer', // 👈 allows browser-compatible use of Buffer
+    },
+  },
+  define: {
+    'process.env': {}, // 👈 required for some polyfills
+  },
+});
