@@ -12,7 +12,8 @@ export function UserInfo() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const groupings = location.state?.selectedTags || [];
+    // Fix: selectedTags is an array of tag IDs, not objects
+    const selectedTagIds = location.state?.selectedTags || [];
 
     const checkEmail = (email) => {
         return email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -53,13 +54,13 @@ export function UserInfo() {
             return;
         }
 
-        const userTagData = groupings.map((group) => {
-            const key = Object.keys(group)[0];
-            return {
-                user: userId,
-                tag: group[key],
-            };
-        });
+        // Fix: Map selectedTagIds directly since they're already tag IDs
+        const userTagData = selectedTagIds.map((tagId) => ({
+            user: userId,
+            tag: tagId,
+        }));
+
+        console.log("User tag data to insert:", userTagData); // Debug log
 
         const { error: tagError } = await supabase.from("user_tag_table").insert(userTagData);
 

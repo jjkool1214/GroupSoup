@@ -9,7 +9,7 @@ function Questionnaire() {
     console.log(location.state)
     const chosen = location.state?.chosen || [];
     const startingSelected = chosen.map((tag) => {
-        return tag.tag
+        return tag.tag;
     })
     console.log(startingSelected);
     const userUpdate = location.state?.update;
@@ -102,8 +102,6 @@ function Questionnaire() {
                                     user: userId,
                                     tag: tagId,
                                 }));
-
-
 
                                 const { error: deleteError } = await supabase
                                     .from("user_tag_table")

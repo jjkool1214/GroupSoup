@@ -9,11 +9,11 @@ const SignUpUser = () => {
     const handleQuestionnaireNavigate = async () => {
         const groupings = {}
         const response = await supabase
-                                                                            .from('tag_table')
-                                                                            .select(`id, name,
-                                                                        category (
-                                                                            name
-                                                                        )`);
+            .from('tag_table')
+            .select(`id, name,
+                category (
+                    name
+                )`);
 
         console.log(response)
         response?.data.forEach((item) => {
